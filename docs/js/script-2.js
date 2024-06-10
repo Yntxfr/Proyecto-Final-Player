@@ -1,39 +1,34 @@
-document.addEventListener('DOMContentLoaded', function () {
-    fetchPartidos();
-});
-
-function fetchPartidos() {
-    fetch('/api/partidos')
-        .then(response => response.json())
-        .then(data => {
-            displayPartidos(data);
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("http://localhost:8080/Partido") // URL de la API
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
         })
-        .catch(error => console.error('Error fetching partidos:', error));
-}
+        .then(data => {
+            const container = document.getElementById("matches-container");
 
-function displayPartidos(partidos) {
-    const container = document.getElementById('partidos-container');
-    container.innerHTML = '';
+            data.forEach(match => {
+                const matchCard = document.createElement("div");
+                matchCard.classList.add("frame-data");
 
-    partidos.forEach(partido => {
-        const partidoHTML = `
-            <div class="container">
-                <div class="frame-data">
+                matchCard.innerHTML = `
                     <div class="frame1">
-                        <div class="competition">${partido.competicion}</div>
-                        <div class="date">${new Date(partido.fecha).toLocaleDateString()}</div>
+                        <div class="competition">${match.competicion}</div>
+                        <div class="date">${new Date(match.fecha).toLocaleDateString()}</div>
                     </div>
                     <div class="frame2">
                         <div class="score">
                             <div class="score-top">
-                                <div class="local-team-img"><img src="#" alt="crest-1" class="crest-1"></div>
-                                <div class="livescore">${partido.marcador}</div>
-                                <div class="visit-team-img"><img src="#" alt="crest-2" class="crest-2"></div>
+                                <div class="local-team-img"><img src="images/${match.localTeam}.png" alt="${match.localTeam}" class="crest-1"></div>
+                                <div class="livescore">${match.marcador}</div>
+                                <div class="visit-team-img"><img src="images/${match.visitTeam}.png" alt="${match.visitTeam}" class="crest-2"></div>
                             </div>
                             <div class="score-bottom">
-                                <div class="local-team">${partido.localTeam}</div>
-                                <div class="time">${partido.tiempoJuego}</div>
-                                <div class="visit-team">${partido.visitTeam}</div>
+                                <div class="local-team">${match.localTeam}</div>
+                                <div class="time">${match.tiempoJuego}</div>
+                                <div class="visit-team">${match.visitTeam}</div>
                             </div>
                         </div>
                     </div>
@@ -44,17 +39,19 @@ function displayPartidos(partidos) {
                         <div class="stat v">V</div>
                     </div>
                     <div class="frame4">
-                        <div class="time">${partido.minutos}’</div>
-                        <div class="goals">${partido.goals}</div>
-                        <div class="assists">${partido.assists}</div>
-                        <div class="rating">${partido.rating}</div>
+                        <div class="time">${match.minutos}’</div>
+                        <div class="goals">${match.goals}</div>
+                        <div class="assists">${match.assists}</div>
+                        <div class="rating">${match.rating}</div>
                     </div>
-                </div>
-            </div>
-        `;
-        container.innerHTML += partidoHTML;
-    });
-}
+                `;
+
+                container.appendChild(matchCard);
+            });
+        })
+        .catch(error => console.error('Error fetching matches:', error));
+});
+
 
 
 

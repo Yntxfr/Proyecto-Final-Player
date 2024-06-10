@@ -343,10 +343,6 @@ header, .title {
     width: 71px;
 }
 
-
-
-
-
 /* --------------------------------------------- */
 /* MORE styles */
 .more-row {
@@ -372,8 +368,10 @@ header, .title {
     transition: color 0.1s ease 0s;
 }
 
-.more-btn:hover {
+.more-row:hover {
     color: #3e31fa;
+    cursor: pointer;
+    background: rgba(217, 217, 217, 0.50);
     transition: color 0.1s;
 }
 
@@ -401,3 +399,54 @@ footer {
 .rights {
     text-align: center;
 }
+
+
+
+
+
+
+
+
+
+/*
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.frame-data {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px;
+    width: calc(33% - 40px);
+    box-sizing: border-box;
+}
+
+.frame1, .frame2, .frame3, .frame4 {
+    margin-bottom: 8px;
+}
+
+.score {
+    display: flex;
+    justify-content: space-between;
+}
+
+.score-top {
+    display: flex;
+    align-items: center;
+}
+
+.local-team-img, .visit-team-img {
+    width: 50px;
+    height: 50px;
+}
+
+.livescore {
+    margin: 0 16px;
+    font-size: 24px;
+}
+
+.local-team, .visit-team, .time, .goals, .assists, .rating {
+    text-align: center;
+}
+*/
